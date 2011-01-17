@@ -1,0 +1,58 @@
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<IEnumerable<Order>>" %>
+
+<asp:Content ContentPlaceHolderID="MainContent" runat="server">
+    <%Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .ToolBar(toolBar => toolBar.Template(() =>
+                                    { %>
+                                    <label class="customer-label" for="Customers-input">
+                                        Show orders for customer:</label>
+                                        <% Html.Telerik().ComboBox()
+                                                .Name("Customers")
+                                                .DataBinding(binding => binding.Ajax().Select("_GetCustomers", "Grid"))
+                                                .AutoFill(true)
+                                                .Filterable(filtering =>
+                                                {
+                                                    filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
+                                                })
+                                                .HtmlAttributes(new { style = "width: 300px" })
+                                                .HighlightFirstMatch(true)
+                                                .ClientEvents(events => events.OnChange("customerChange"))
+                                                .Render();
+                                        %>
+                                     <% }))
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.OrderID).Width(100);
+            columns.Bound(o => o.Customer.CompanyName);
+            columns.Bound(o => o.ShipAddress);
+            columns.Bound(o => o.OrderDate).Format("{0:MM/dd/yyyy}").Width(100);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_CustomToolBar", "Grid"))
+        .Pageable()
+        .Sortable()
+        .Render();
+    %>
+    <script type="text/javascript">
+        function customerChange() {
+            var customerID = $(this).data("tComboBox").value();
+
+            $("#Grid").data("tGrid").rebind({
+                customerID: customerID
+            });
+        }       
+    </script>
+</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <style type="text/css">
+        .customer-label
+        {
+            vertical-align: middle;
+            padding-right: .4em;
+        }
+        #Customers
+        {
+            vertical-align: middle;
+        }
+    </style>
+</asp:Content>

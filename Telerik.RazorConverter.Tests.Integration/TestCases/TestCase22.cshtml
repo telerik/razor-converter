@@ -1,0 +1,126 @@
+﻿@model AggregatedProductModel
+
+@{ Html.BeginForm(); }
+
+    @{  Html.Telerik().Grid(Model.Products)
+            .Name("Grid")
+            .Columns(columns =>
+            {     
+                columns.Template(
+                        @<text>
+                            <input name="checkedRecords" type="checkbox" 
+                                value="@item.ProductID " title="checkedRecords"                         
+                                @if (Model.SelectedProducts.Any(sp => sp.ProductID == item.ProductID)) {
+                                        <text>checked="checked"</text>
+                                    } 
+                                />
+                        </text>
+                    )
+                    .HeaderTemplate(
+                        @<text>
+                            <input type="checkbox" title="check all records" id="checkAllRecords"
+                                @if (Model.SelectedProducts.Any()) {  <text>checked="checked"</text>  } 
+                                />
+                        </text>
+                    )
+                    .Width(50)
+                    .HeaderHtmlAttributes(new { style = "text-align:center" })
+                    .HtmlAttributes(new { style = "text-align:center" });
+
+                columns.Bound(p => p.ProductID).Width(100);
+            
+                columns.Bound(p => p.ProductName);
+            
+                columns.Bound(p => p.QuantityPerUnit).Width(200);
+                    
+                columns.Template(
+                        @<text>                                                        
+                            <table cellspacing="0" class="data-row">
+                                <tr>
+                                    <td>@item.UnitsOnOrder</td>
+                                    <td>@item.UnitsInStock</td>
+                                </tr>
+                            </table>
+                        </text>)
+                    .HeaderTemplate(
+                        @<text>        
+                        <table cellspacing="0" class="data-header">
+                            <tr>
+                                <td colspan="2"><strong>Units</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Ordered</td>
+                                <td>In Stock</td>
+                            </tr>
+                        </table>
+                        </text>)
+                    .Width(200);
+                        
+                columns.Bound(p => p.UnitPrice)
+                    .FooterTemplate(
+                        @<text>
+                            Total:@string.Format("{0:c}", Model.TotalPrice)
+                        </text>
+                    )
+                    .Width(100)
+                    .Format("{0:c}");
+            })
+            .Pageable()
+            .Render();
+    }
+                             
+
+    @{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text>
+        /* attach event handler to "check all" checkbox */
+        $('#checkAllRecords').click(function checkAll() {
+            $("#Grid tbody input:checkbox").attr("checked", this.checked);            
+        });
+    </text>); }
+                  
+    <p>
+        <button type="submit" class="t-button t-state-default">Display selected products</button>
+    </p>
+
+@{ Html.EndForm(); }
+
+@if (Model.SelectedProducts.Any()) { 
+      
+    <h3>Selected Products</h3>
+      
+    @(Html.Telerik().Grid(Model.SelectedProducts)
+            .Name("CheckedProducts")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.ProductID).Width(100);
+                columns.Bound(p => p.ProductName).Width(200);
+                columns.Bound(p => p.UnitPrice).Width(100).Format("{0:c}");
+            })
+            .Footer(false)
+    )           
+}
+
+@section HeadContent {
+
+    <style type="text/css">
+        
+        .data-header,
+        .data-row
+        {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .data-header td,
+        .data-row td
+        {
+            width: 50%;
+            border: 0;
+            vertical-align: middle;
+            text-align: center;
+        }
+        
+    </style>
+
+}
+
