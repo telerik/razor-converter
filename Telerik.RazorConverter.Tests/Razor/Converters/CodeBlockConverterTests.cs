@@ -85,7 +85,7 @@
             codeBlockMock.Setup(cb => cb.Code).Returns(@"Html.RenderPartial(""AccessibilityValidation"");");
 
             codeBlockMock.Setup(cb => cb.BlockType).Returns(CodeBlockNodeType.Complete);
-            nodeFactoryMock.Setup(f => f.CreateCodeNode(@"@RenderPage(""AccessibilityValidation"")", false, false)).Verifiable();
+            nodeFactoryMock.Setup(f => f.CreateCodeNode(@"@Html.Partial(""AccessibilityValidation"")", false, false)).Verifiable();
 
             converter.ConvertNode(codeBlockMock.Object);
 

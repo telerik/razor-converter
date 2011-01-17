@@ -32,7 +32,7 @@
             var requiresBlock = false;
 
             var code = srcNode.Code;
-            code = ReplaceHtmlRenderWithRenderPage(code);
+            code = ReplaceRenderPartial(code);
 
             if (code.TrimStart().StartsWith("@"))
             {
@@ -49,12 +49,12 @@
             return node is IWebFormsCodeBlockNode;
         }
 
-        private string ReplaceHtmlRenderWithRenderPage(string input)
+        private string ReplaceRenderPartial(string input)
         {
             var searchRegex = new Regex(@"Html.RenderPartial\((?<page>.*?)\);", RegexOptions.Singleline | RegexOptions.Multiline);
             return searchRegex.Replace(input, m =>
             {
-                return string.Format("@RenderPage({0})", m.Groups["page"].Value.Trim());
+                return string.Format("@Html.Partial({0})", m.Groups["page"].Value.Trim());
             });
         }
     }
