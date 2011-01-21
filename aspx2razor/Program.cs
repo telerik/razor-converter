@@ -52,9 +52,16 @@
                 return;
             }
 
-            var currentDirectory = Directory.GetCurrentDirectory();
-            var outputDirectory = (args.Length == 2) ? args[1] : currentDirectory;
-            foreach (var file in Directory.GetFiles(currentDirectory, args[0]))
+            var inputDirectory = Path.GetDirectoryName(args[0]);
+            if (string.IsNullOrEmpty(inputDirectory))
+            {
+                inputDirectory = Directory.GetCurrentDirectory();
+            }
+
+            var inputFilter = Path.GetFileName(args[0]);
+
+            var outputDirectory = (args.Length == 2) ? args[1] : inputDirectory;
+            foreach (var file in Directory.GetFiles(inputDirectory, inputFilter))
             {
                 Console.Write("Converting {0}... ", Path.GetFileName(file));
                 
