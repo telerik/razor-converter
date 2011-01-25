@@ -1,10 +1,11 @@
 The razor-converter is a simple tool for converting Microsoft&reg; ASP.NET MVC WebForms Views to the new Razor syntax.
+It was initially developed by the Telerik ASP.NET MVC team for internal use, but it now lives its own life on GitHub.
 
 Known limitations:
 
 * The tool only works with views and does not deal with the project structure and master pages.
 * Expressions in script tags are not converted
-* Due to the vast differences between the view engines the automatic conversion will sometimes fail or produce incorrect results. See the integration tests for specific scenarios that are not covered.
+* Due to the differences between the view engines the automatic conversion will sometimes fail or produce incorrect results. See the integration tests for specific scenarios that are not covered.
 
 For general tips on converting WebForms Views to Razor see these blog posts:
 
