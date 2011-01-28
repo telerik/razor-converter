@@ -1,12 +1,9 @@
 ﻿namespace Telerik.RazorConverter.WebForms.Filters
 {
     using System.Collections.Generic;
-    using System.ComponentModel.Composition;
     using System.Linq;
     using Telerik.RazorConverter.WebForms.DOM;
 
-    [Export(typeof(IWebFormsNodeFilter))]
-    [ExportMetadata("Order", 10)]
     public class CodeBlockGroupingFilter : IWebFormsNodeFilter
     {
         private IWebFormsCodeGroupNodeFactory MultiPartNodeFactory
@@ -15,7 +12,6 @@
             set;
         }
 
-        [ImportingConstructor]
         public CodeBlockGroupingFilter(IWebFormsCodeGroupNodeFactory nodeFactory)
         {
             MultiPartNodeFactory = nodeFactory;

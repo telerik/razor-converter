@@ -1,13 +1,9 @@
 ﻿namespace Telerik.RazorConverter.WebForms.Filters
 {
-    using System;
     using System.Collections.Generic;
-    using System.ComponentModel.Composition;
     using System.Text.RegularExpressions;
     using Telerik.RazorConverter.WebForms.DOM;
 
-    [Export(typeof(IWebFormsNodeFilter))]
-    [ExportMetadata("Order", 30)]
     public class WrapNestedTemplatesFilter : IWebFormsNodeFilter
     {
         public IList<IWebFormsNode> Filter(IWebFormsNode node, IWebFormsNode previousFilteredNode)
