@@ -1,14 +1,10 @@
 ﻿namespace Telerik.RazorConverter.Razor.Converters
 {
-    using System;
     using System.Collections.Generic;
-    using System.ComponentModel.Composition;
     using Telerik.RazorConverter;
     using Telerik.RazorConverter.Razor.DOM;
     using Telerik.RazorConverter.WebForms.DOM;
 
-    [Export(typeof(INodeConverter<IRazorNode>))]
-    [ExportMetadata("Order", 25)]
     public class CodeGroupConverter : INodeConverter<IRazorNode>
     {
         private IRazorNodeConverterProvider NodeConverterProvider
@@ -17,7 +13,6 @@
             set;
         }
 
-        [ImportingConstructor]
         public CodeGroupConverter(IRazorNodeConverterProvider converterProvider)
         {
             NodeConverterProvider = converterProvider;

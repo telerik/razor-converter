@@ -1,14 +1,10 @@
 ﻿namespace Telerik.RazorConverter.Razor.Converters
 {
-    using System;
     using System.Collections.Generic;
-    using System.ComponentModel.Composition;
     using Telerik.RazorConverter;
     using Telerik.RazorConverter.Razor.DOM;
     using Telerik.RazorConverter.WebForms.DOM;
 
-    [Export(typeof(INodeConverter<IRazorNode>))]
-    [ExportMetadata("Order", 20)]
     public class ContentTagConverter : INodeConverter<IRazorNode>
     {
         private IRazorNodeConverterProvider NodeConverterProvider
@@ -29,7 +25,6 @@
             set;
         }
 
-        [ImportingConstructor]
         public ContentTagConverter( IRazorNodeConverterProvider converterProvider,
                                     IRazorSectionNodeFactory sectionFactory,
                                     IContentTagConverterConfiguration converterConfiguration)

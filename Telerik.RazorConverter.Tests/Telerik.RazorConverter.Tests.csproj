@@ -60,7 +60,6 @@
     <Compile Include="Razor\DOM\RazorTextNodeFactoryTests.cs" />
     <Compile Include="Razor\DOM\RazorDirectiveNodeFactoryTests.cs" />
     <Compile Include="Razor\DOM\RazorCodeNodeFactoryTests.cs" />
-    <Compile Include="Razor\Converters\RazorNodeConverterProviderTests.cs" />
     <Compile Include="Razor\Rendering\SectionNodeRendererTests.cs" />
     <Compile Include="Razor\Rendering\RazorViewRendererTests.cs" />
     <Compile Include="Razor\DOM\RazorNodeTests.cs" />

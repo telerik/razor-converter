@@ -1,13 +1,10 @@
 ﻿namespace Telerik.RazorConverter.Razor.Converters
 {
     using System.Collections.Generic;
-    using System.ComponentModel.Composition;
     using System.Text.RegularExpressions;
     using Telerik.RazorConverter.Razor.DOM;
     using Telerik.RazorConverter.WebForms.DOM;
 
-    [Export(typeof(INodeConverter<IRazorNode>))]
-    [ExportMetadata("Order", 30)]
     public class CodeBlockConverter : INodeConverter<IRazorNode>
     {
         private IRazorCodeNodeFactory CodeNodeFactory
@@ -16,7 +13,6 @@
             set;
         }
 
-        [ImportingConstructor]
         public CodeBlockConverter(IRazorCodeNodeFactory nodeFactory)
         {
             CodeNodeFactory = nodeFactory;

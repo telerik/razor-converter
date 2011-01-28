@@ -1,12 +1,9 @@
 ﻿namespace Telerik.RazorConverter.Razor.Converters
 {
     using System.Collections.Generic;
-    using System.ComponentModel.Composition;
     using Telerik.RazorConverter.Razor.DOM;
     using Telerik.RazorConverter.WebForms.DOM;
 
-    [Export(typeof(INodeConverter<IRazorNode>))]
-    [ExportMetadata("Order", 40)]
     public class TextNodeConverter : INodeConverter<IRazorNode>
     {
         private IRazorTextNodeFactory TextNodeFactory
@@ -15,7 +12,6 @@
             set;
         }
 
-        [ImportingConstructor]
         public TextNodeConverter(IRazorTextNodeFactory nodeFactory)
         {
             TextNodeFactory = nodeFactory;

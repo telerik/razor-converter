@@ -1,14 +1,10 @@
 ﻿namespace Telerik.RazorConverter.Razor.Converters
 {
-    using System;
     using System.Collections.Generic;
-    using System.ComponentModel.Composition;
     using System.Text.RegularExpressions;
     using Telerik.RazorConverter.Razor.DOM;
     using Telerik.RazorConverter.WebForms.DOM;
 
-    [Export(typeof(INodeConverter<IRazorNode>))]
-    [ExportMetadata("Order", 10)]
     public class DirectiveConverter : INodeConverter<IRazorNode>
     {
         private IRazorDirectiveNodeFactory DirectiveNodeFactory
@@ -17,7 +13,6 @@
             set;
         }
 
-        [ImportingConstructor]
         public DirectiveConverter(IRazorDirectiveNodeFactory nodeFactory)
         {
             DirectiveNodeFactory = nodeFactory;

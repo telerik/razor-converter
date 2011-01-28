@@ -1,6 +1,5 @@
 ﻿namespace Telerik.RazorConverter.Razor.Converters
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.Composition;
     using Telerik.RazorConverter;
@@ -9,25 +8,28 @@
     [Export(typeof(IRazorNodeConverterProvider))]
     public class RazorNodeConverterProvider : IRazorNodeConverterProvider
     {
-        [ImportMany]
-        public IEnumerable<Lazy<INodeConverter<IRazorNode>, IOrderMetadata>> NodeConverterRegistrations
+        [ImportingConstructor]
+        public RazorNodeConverterProvider(  IRazorDirectiveNodeFactory directiveNodeFactory,
+                                            IRazorSectionNodeFactory sectionNodeFactory,
+                                            IRazorCodeNodeFactory codeNodeFactory,
+                                            IRazorTextNodeFactory textNodeFactory,
+                                            IRazorExpressionNodeFactory expressionNodeFactory,
+                                            IContentTagConverterConfiguration contentTagConverterConfig)
         {
-            get;
-            set;
+            NodeConverters = new INodeConverter<IRazorNode>[] {
+                new DirectiveConverter(directiveNodeFactory),
+                new ContentTagConverter(this, sectionNodeFactory, contentTagConverterConfig),
+                new CodeGroupConverter(this),
+                new CodeBlockConverter(codeNodeFactory),
+                new TextNodeConverter(textNodeFactory),
+                new ExpressionBlockConverter(expressionNodeFactory)
+            };
         }
 
-        private IList<INodeConverter<IRazorNode>> sortedNodeConverters;
         public IList<INodeConverter<IRazorNode>> NodeConverters
         {
-            get
-            {
-                if (sortedNodeConverters == null)
-                {
-                    sortedNodeConverters = NodeConverterRegistrations.SortByOrder();
-                }
-
-                return sortedNodeConverters;
-            }
+            get;
+            private set;
         }
     }
 }
