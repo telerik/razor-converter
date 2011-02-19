@@ -38,10 +38,21 @@
         }
 
         [Fact]
-        public void Should_trim_expression_block_start()
+        public void Should_trim_expression_whitespace()
         {
-            expressionBlockMock.Setup(cb => cb.Expression).Returns(" DateTime.Now");
+            expressionBlockMock.Setup(cb => cb.Expression).Returns("\t DateTime.Now ");
             nodeFactoryMock.Setup(f => f.CreateExpressionNode("DateTime.Now", false)).Verifiable();
+
+            converter.ConvertNode(expressionBlockMock.Object);
+
+            nodeFactoryMock.Verify();
+        }
+
+        [Fact]
+        public void Should_preserve_expression_newlines()
+        {
+            expressionBlockMock.Setup(cb => cb.Expression).Returns(" DateTime.Now\r\n");
+            nodeFactoryMock.Setup(f => f.CreateExpressionNode("DateTime.Now\r\n", true)).Verifiable();
 
             converter.ConvertNode(expressionBlockMock.Object);
 

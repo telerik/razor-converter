@@ -22,7 +22,8 @@
         {
             var srcNode = node as IWebFormsExpressionBlockNode;
             var isMultiline = srcNode.Expression.Contains("\r") || srcNode.Expression.Contains("\n");
-            var expression = srcNode.Expression.TrimStart().Replace("ResolveUrl", "Url.Content");
+            var expression = srcNode.Expression.Trim(new char[] { ' ', '\t' });
+            expression = expression.Replace("ResolveUrl", "Url.Content");
             expression = RemoveHtmlEncode(expression);
             expression = WrapHtmlDecode(expression);
             return new IRazorNode[] 
