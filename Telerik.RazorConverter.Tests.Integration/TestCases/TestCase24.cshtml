@@ -1,0 +1,42 @@
+﻿@model IEnumerable<OrderDto>
+@* Comment *@
+@using (Html.Configurator("The grid should...")
+              .PostTo("FirstLook", "Grid")
+              .Begin())
+              {
+	@*
+	Multi-line
+	comment
+	*@
+    <ul>
+        <li>@Html.CheckBox("ajax", true, "make <strong>AJAX</strong> requests")</li>
+        <li>@Html.CheckBox("grouping", true, "allow <strong>grouping</strong> of data")</li>
+        <li>@Html.CheckBox("filtering", true, "allow <strong>filtering</strong> of data")</li>
+        <li>@Html.CheckBox("paging", true, "have <strong>pages</strong> with 10 items")</li>
+        <li>@Html.CheckBox("scrolling", true, "show a <strong>scrollbar</strong> when there are many items")</li>
+        <li>@Html.CheckBox("sorting", true, "allow <strong>sorting</strong> of data")</li>
+        <li>@Html.CheckBox("showFooter", true, "show footer")</li>
+    </ul>
+    <button class="t-button t-state-default" type="submit">Apply</button>
+}
+@(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.OrderID).Width(100);
+            columns.Bound(o => o.ContactName).Width(200);
+            columns.Bound(o => o.ShipAddress);
+            columns.Bound(o => o.OrderDate).Format("{0:MM/dd/yyyy}").Width(120);
+        })
+        .DataBinding(dataBinding => 
+        {
+            dataBinding.Server().Select("FirstLook", "Grid", new { ajax = ViewData["ajax"] });
+            dataBinding.Ajax().Select("_FirstLook", "Grid").Enabled((bool)ViewData["ajax"]);
+        })
+        .Scrollable(scrolling => scrolling.Enabled((bool)ViewData["scrolling"]))
+        .Sortable(sorting => sorting.Enabled((bool)ViewData["sorting"]))
+        .Pageable(paging => paging.Enabled((bool)ViewData["paging"]))
+        .Filterable(filtering => filtering.Enabled((bool)ViewData["filtering"]))
+        .Groupable(grouping => grouping.Enabled((bool)ViewData["grouping"]))
+        .Footer((bool)ViewData["showFooter"])
+)

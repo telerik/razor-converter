@@ -52,12 +52,17 @@
   <ItemGroup>
     <Compile Include="Razor\Converters\CodeGroupConverter.cs" />
     <Compile Include="Razor\Converters\ContentTagConverterConfiguration.cs" />
+    <Compile Include="Razor\Converters\CommentNodeConverter.cs" />
     <Compile Include="Razor\Converters\IContentTagConverterConfiguration.cs" />
     <Compile Include="Razor\Converters\RazorNodeConverterProvider.cs" />
     <Compile Include="Razor\Converters\IRazorNodeConverterProvider.cs" />
     <Compile Include="Razor\Converters\CodeBlockConverter.cs" />
     <Compile Include="Razor\Converters\ExpressionBlockConverter.cs" />
     <Compile Include="IOrderMetadata.cs" />
+    <Compile Include="Razor\DOM\RazorCommentNode.cs" />
+    <Compile Include="Razor\DOM\RazorCommentNodeFactory.cs" />
+    <Compile Include="Razor\DOM\IRazorCommentNode.cs" />
+    <Compile Include="Razor\DOM\IRazorCommentNodeFactory.cs" />
     <Compile Include="Razor\DOM\RazorSectionNodeFactory.cs" />
     <Compile Include="Razor\DOM\RazorSectionNode.cs" />
     <Compile Include="Razor\DOM\IRazorSectionNodeFactory.cs" />
@@ -80,6 +85,7 @@
     <Compile Include="Razor\DOM\IRazorCodeNode.cs" />
     <Compile Include="Razor\DOM\RazorTextNode.cs" />
     <Compile Include="Razor\DOM\IRazorTextNode.cs" />
+    <Compile Include="Razor\Rendering\CommentNodeRenderer.cs" />
     <Compile Include="Razor\Rendering\RazorNodeRendererProvider.cs" />
     <Compile Include="Razor\Rendering\IRazorNodeRendererProvider.cs" />
     <Compile Include="Razor\Rendering\SectionNodeRenderer.cs" />

@@ -13,6 +13,7 @@
                                             IRazorSectionNodeFactory sectionNodeFactory,
                                             IRazorCodeNodeFactory codeNodeFactory,
                                             IRazorTextNodeFactory textNodeFactory,
+                                            IRazorCommentNodeFactory commentNodeFactory,
                                             IRazorExpressionNodeFactory expressionNodeFactory,
                                             IContentTagConverterConfiguration contentTagConverterConfig)
         {
@@ -22,6 +23,7 @@
                 new CodeGroupConverter(this),
                 new CodeBlockConverter(codeNodeFactory),
                 new TextNodeConverter(textNodeFactory),
+                new CommentNodeConverter(commentNodeFactory),
                 new ExpressionBlockConverter(expressionNodeFactory)
             };
         }

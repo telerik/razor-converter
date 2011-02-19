@@ -73,7 +73,14 @@
         public void Parse_should_parse_comments()
         {
             var document = parser.Parse("TEXT TEXT<%-- COMMENT --%>TEXT TEXT");
-            ((IWebFormsCommentNode)document.RootNode.Children[1]).Text.ShouldEqual("<%-- COMMENT --%>");
+            ((IWebFormsCommentNode)document.RootNode.Children[1]).Text.ShouldEqual(" COMMENT ");
+        }
+
+        [Fact]
+        public void Parse_should_parse_comments_with_dashes()
+        {
+            var document = parser.Parse("TEXT TEXT<%-- COMM-ENT --%>TEXT TEXT");
+            ((IWebFormsCommentNode)document.RootNode.Children[1]).Text.ShouldEqual(" COMM-ENT ");
         }
 
         [Fact]

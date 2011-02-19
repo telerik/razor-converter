@@ -56,10 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Razor\Converters\CodeGroupConverterTests.cs" />
+    <Compile Include="Razor\Converters\CommentNodeConverterTests.cs" />
+    <Compile Include="Razor\DOM\RazorCommentNodeFactoryTests.cs" />
     <Compile Include="Razor\Rendering\CodeNodeRendererTests.cs" />
     <Compile Include="Razor\DOM\RazorTextNodeFactoryTests.cs" />
     <Compile Include="Razor\DOM\RazorDirectiveNodeFactoryTests.cs" />
     <Compile Include="Razor\DOM\RazorCodeNodeFactoryTests.cs" />
+    <Compile Include="Razor\Rendering\CommentNodeRendererTests.cs" />
     <Compile Include="Razor\Rendering\SectionNodeRendererTests.cs" />
     <Compile Include="Razor\Rendering\RazorViewRendererTests.cs" />
     <Compile Include="Razor\DOM\RazorNodeTests.cs" />

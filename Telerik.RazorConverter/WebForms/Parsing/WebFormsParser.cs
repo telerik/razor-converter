@@ -28,7 +28,7 @@
         {
             startTagOpeningBracketRegex = new Regex(@"\G<[^%\/]", RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.IgnoreCase);
             directiveRegex = new DirectiveRegex();
-            commentRegex = new CommentRegex();
+            commentRegex = new Regex(@"\G<%--(?<comment>.*?)--%>", RegexOptions.Multiline | RegexOptions.Singleline);
             endTagRegex = new EndTagRegex();
             aspCodeRegex = new AspCodeRegex();
             aspExprRegex = new AspExprRegex();

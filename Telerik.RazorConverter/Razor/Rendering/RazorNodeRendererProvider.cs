@@ -20,6 +20,7 @@
                 new CodeNodeRenderer(),
                 new ExpressionNodeRenderer(),
                 new TextNodeRenderer(),
+                new CommentNodeRenderer(),
                 new SectionNodeRenderer(this)
             };
         }

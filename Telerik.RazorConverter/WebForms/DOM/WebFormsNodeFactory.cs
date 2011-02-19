@@ -80,7 +80,7 @@
 
         private IWebFormsNode CommentNodeBuilder(Match match)
         {
-            var node = new CommentNode { Text = match.Value };
+            var node = new CommentNode { Text = match.Groups["comment"].Value };
             attributesReader.ReadAttributes(match, node.Attributes);
             return node;
         }
