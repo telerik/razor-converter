@@ -69,10 +69,7 @@
 
             foreach (var file in files)
             {
-
-                var subfolder = directoryHandler.CalculateOutputSubfolder(file);
-
-                Console.Write("Converting {0}... ", subfolder + Path.GetFileName(file));
+                Console.Write("Converting {0}... ", file);
                 
                 var webFormsPageSource = File.ReadAllText(file, Encoding.UTF8);
                 var webFormsDocument = Parser.Parse(webFormsPageSource);
