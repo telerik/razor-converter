@@ -47,7 +47,6 @@
 
         public void Run(string[] args)
         {
-
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
             if (args.Length < 1)
@@ -56,48 +55,54 @@
                 return;
             }
 
-            var outputDirectory = (args.Length >= 2 && !args[1].StartsWith("-")) ? args[1] : args[0];
+            var outputDirectory = (args.Length >= 2 && !args[1].StartsWith("-")) ? args[1] : "";
             var directoryHandler = new DirectoryHandler(args[0], outputDirectory);
 
             var files = directoryHandler.GetFiles(args.Contains("-s"));
-
-            if (files.Length == 0)
-            {
-                Console.WriteLine("No files found to convert");
-                return;
-            }
-
             foreach (var file in files)
             {
-                Console.Write("Converting {0}... ", file);
+                Console.WriteLine("Converting {0}", file);
                 
                 var webFormsPageSource = File.ReadAllText(file, Encoding.UTF8);
                 var webFormsDocument = Parser.Parse(webFormsPageSource);
                 var razorDom = Converter.Convert(webFormsDocument);
                 var razorPage = Renderer.Render(razorDom);
 
-                var outputFile = directoryHandler.CalculateOutputfilename(file, ".cshtml");
-                File.WriteAllText(outputFile, razorPage, Encoding.UTF8);
-                
-                Console.WriteLine("done");
+                var outputFileName = ReplaceExtension(directoryHandler.GetOutputFileName(file), ".cshtml");
+                Console.WriteLine("Writing    {0}", outputFileName);
+                EnsureDirectory(Path.GetDirectoryName(outputFileName));
+                File.WriteAllText(outputFileName, razorPage, Encoding.UTF8);
+
+                Console.WriteLine("Done\n");
             }
 
             var elapsed = stopwatch.Elapsed;
-            Console.Out.WriteLine();
-            Console.Out.WriteLine("Statistics:");
-            Console.Out.WriteLine("{0} files converted", files.Length);
-            Console.Out.WriteLine("Total time: {0} seconds", elapsed.TotalSeconds);
-            Console.Out.WriteLine("Avg time: {0} ms per file", Math.Round(elapsed.TotalMilliseconds / (double)files.Length, 2));
-
+            Console.WriteLine();
+            Console.WriteLine("{0} files converted", files.Length);
+            Console.WriteLine("Elapsed: {0} seconds", elapsed.TotalSeconds);
         }
 
-        private void DisplayUsage()
+        private static void DisplayUsage()
         {
             Console.WriteLine("Converts WebForms pages (.aspx, .ascx) into a Razor views (.cshtml)");
             Console.WriteLine("Usage: aspx2razor <input file / wildcard> [output-directory] [Options]");
             Console.WriteLine("Options available:");
             Console.WriteLine("");
             Console.WriteLine("-s: Inspect all subdirectories");
+        }
+
+        private static void EnsureDirectory(string directory)
+        {
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+        }
+
+        private static string ReplaceExtension(string fileName, string newExtension)
+        {
+            var targetFolder = Path.GetDirectoryName(fileName);
+            return Path.Combine(targetFolder, Path.GetFileNameWithoutExtension(fileName) + newExtension);
         }
     }
 }
