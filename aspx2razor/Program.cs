@@ -4,6 +4,7 @@
     using System.ComponentModel.Composition;
     using System.ComponentModel.Composition.Hosting;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using Telerik.RazorConverter;
     using Telerik.RazorConverter.Razor.DOM;
@@ -46,42 +47,62 @@
 
         public void Run(string[] args)
         {
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
             if (args.Length < 1)
             {
                 DisplayUsage();
                 return;
             }
 
-            var inputDirectory = Path.GetDirectoryName(args[0]);
-            if (string.IsNullOrEmpty(inputDirectory))
-            {
-                inputDirectory = Directory.GetCurrentDirectory();
-            }
+            var outputDirectory = (args.Length >= 2 && !args[1].StartsWith("-")) ? args[1] : "";
+            var directoryHandler = new DirectoryHandler(args[0], outputDirectory);
 
-            var inputFilter = Path.GetFileName(args[0]);
-
-            var outputDirectory = (args.Length == 2) ? args[1] : inputDirectory;
-            foreach (var file in Directory.GetFiles(inputDirectory, inputFilter))
+            var recursive = args.Contains("-r", StringComparer.InvariantCultureIgnoreCase);
+            var files = directoryHandler.GetFiles(recursive);
+            foreach (var file in files)
             {
-                Console.Write("Converting {0}... ", Path.GetFileName(file));
+                Console.WriteLine("Converting {0}", file);
                 
                 var webFormsPageSource = File.ReadAllText(file, Encoding.UTF8);
                 var webFormsDocument = Parser.Parse(webFormsPageSource);
                 var razorDom = Converter.Convert(webFormsDocument);
                 var razorPage = Renderer.Render(razorDom);
 
-                var outputFile = Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(file) + ".cshtml");
-                File.WriteAllText(outputFile, razorPage, Encoding.UTF8);
-                
-                Console.WriteLine("done");
+                var outputFileName = ReplaceExtension(directoryHandler.GetOutputFileName(file), ".cshtml");
+                Console.WriteLine("Writing    {0}", outputFileName);
+                EnsureDirectory(Path.GetDirectoryName(outputFileName));
+                File.WriteAllText(outputFileName, razorPage, Encoding.UTF8);
+
+                Console.WriteLine("Done\n");
             }
 
+            var elapsed = stopwatch.Elapsed;
+            Console.WriteLine();
+            Console.WriteLine("{0} files converted", files.Length);
+            Console.WriteLine("Elapsed: {0} seconds", elapsed.TotalSeconds);
         }
 
-        private void DisplayUsage()
+        private static void DisplayUsage()
         {
             Console.WriteLine("Converts WebForms pages (.aspx, .ascx) into a Razor views (.cshtml)");
-            Console.WriteLine("Usage: aspx2razor <input file / wildcard> [output-directory]");
+            Console.WriteLine("Usage: aspx2razor <input file / wildcard> [output-directory] [options]");
+            Console.WriteLine("Options available:\r");
+            Console.WriteLine("-r: Convert directories and their contents recursively");
+        }
+
+        private static void EnsureDirectory(string directory)
+        {
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+        }
+
+        private static string ReplaceExtension(string fileName, string newExtension)
+        {
+            var targetFolder = Path.GetDirectoryName(fileName);
+            return Path.Combine(targetFolder, Path.GetFileNameWithoutExtension(fileName) + newExtension);
         }
     }
 }
