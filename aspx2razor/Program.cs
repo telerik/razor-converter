@@ -58,7 +58,8 @@
             var outputDirectory = (args.Length >= 2 && !args[1].StartsWith("-")) ? args[1] : "";
             var directoryHandler = new DirectoryHandler(args[0], outputDirectory);
 
-            var files = directoryHandler.GetFiles(args.Contains("-s"));
+            var recursive = args.Contains("-r", StringComparer.InvariantCultureIgnoreCase);
+            var files = directoryHandler.GetFiles(recursive);
             foreach (var file in files)
             {
                 Console.WriteLine("Converting {0}", file);
@@ -85,10 +86,9 @@
         private static void DisplayUsage()
         {
             Console.WriteLine("Converts WebForms pages (.aspx, .ascx) into a Razor views (.cshtml)");
-            Console.WriteLine("Usage: aspx2razor <input file / wildcard> [output-directory] [Options]");
-            Console.WriteLine("Options available:");
-            Console.WriteLine("");
-            Console.WriteLine("-s: Inspect all subdirectories");
+            Console.WriteLine("Usage: aspx2razor <input file / wildcard> [output-directory] [options]");
+            Console.WriteLine("Options available:\r");
+            Console.WriteLine("-r: Convert directories and their contents recursively");
         }
 
         private static void EnsureDirectory(string directory)

@@ -1,9 +1,8 @@
-﻿using System.IO;
-using System.Linq;
-using System;
-
-namespace aspx2razor
+﻿namespace aspx2razor
 {
+    using System.IO;
+    using System.Linq;
+
     /// <summary>
     /// An object that will handle the traversing of directories and collection of files
     /// </summary>
@@ -21,7 +20,6 @@ namespace aspx2razor
         public DirectoryHandler(string inputFile, string outputDirectory)
         {
             InputFilter = Path.GetFileName(inputFile) ?? "";
-
             InputDirectory = GetFullPathOrDefault(inputFile);
 
             if (string.IsNullOrEmpty(outputDirectory))
