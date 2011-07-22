@@ -67,6 +67,7 @@
       <SubType>ASPXCodeBehind</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestCases\TestCase25.aspx.txt" />
     <None Include="TestCases\TestCase24.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -224,6 +225,7 @@
       <SubType>ASPXCodeBehind</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="TestCases\TestCase25.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestCases\TestCase01.cshtml">
@@ -233,11 +235,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Telerik.RazorConverter.Tests.Common\Telerik.RazorConverter.Tests.Common.csproj">
       <Project>{B30D861F-7D12-436A-BC5A-930D48291037}</Project>
-      <Name>RazorConverter.Tests.Common</Name>
+      <Name>Telerik.RazorConverter.Tests.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Telerik.RazorConverter\Telerik.RazorConverter.csproj">
       <Project>{88630458-D5BE-43B0-A7FB-BC0DFE6CB62E}</Project>
-      <Name>RazorConverter</Name>
+      <Name>Telerik.RazorConverter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

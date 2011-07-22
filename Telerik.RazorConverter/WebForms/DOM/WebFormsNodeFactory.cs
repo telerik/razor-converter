@@ -66,6 +66,10 @@
                 {
                     node.Directive = DirectiveType.Control;
                 }
+                else if (directiveType.Contains("import"))
+                {
+                    node.Directive = DirectiveType.Import;
+                }
             }
 
             return node;
