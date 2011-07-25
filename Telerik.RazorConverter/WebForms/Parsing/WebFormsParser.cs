@@ -78,10 +78,6 @@
                 {
                     if ((match = directiveRegex.Match(input, startAt)).Success)
                     {
-                        if (input.Contains(@"Namespace="))
-                        {
-                            var i = 0;
-                        }
                         var directiveNode = NodeFactory.CreateNode(match, NodeType.Directive);
                         parentNode.Children.Add(directiveNode);
                     }
