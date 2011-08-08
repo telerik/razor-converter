@@ -29,6 +29,11 @@
                 {
                     if (converter.CanConvertNode(srcNode))
                     {
+                        if (srcNode.Type == NodeType.Directive && srcNode.Attributes.ContainsKey("namespace"))
+                        {
+                            var i = 1;
+                        }
+
                         foreach (var dstNode in converter.ConvertNode(srcNode))
                         {
                             rootNode.Children.Add(dstNode);

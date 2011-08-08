@@ -215,6 +215,7 @@
             var document = parser.Parse(docType);
             ((IWebFormsTextNode)document.RootNode.Children[0]).Text.ShouldEqual(docType);
         }
+        
     }
 }
 
