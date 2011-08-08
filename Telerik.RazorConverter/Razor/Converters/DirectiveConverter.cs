@@ -23,19 +23,33 @@
             var result = new List<IRazorNode>();
 
             var directiveNode = node as IWebFormsDirectiveNode;
-            if (directiveNode != null &&
-                directiveNode.Attributes.ContainsKey("inherits"))
+
+            if (directiveNode != null)
             {
-                var inheritsFrom = directiveNode.Attributes["inherits"];
-                var viewPageGenericType = new Regex("System.Web.Mvc.(?:ViewPage|ViewUserControl)<(?<type>.*)>");
-                var typeMatch = viewPageGenericType.Match(inheritsFrom);
-                if (typeMatch.Success)
+                if (directiveNode.Attributes.ContainsKey("inherits"))
                 {
-                    result.Add(DirectiveNodeFactory.CreateDirectiveNode("model", typeMatch.Result("${type}")));
+                    var inheritsFrom = directiveNode.Attributes["inherits"];
+                    var viewPageGenericType = new Regex("System.Web.Mvc.(?:ViewPage|ViewUserControl)<(?<type>.*)>");
+                    var typeMatch = viewPageGenericType.Match(inheritsFrom);
+                    if (typeMatch.Success)
+                    {
+                        result.Add(DirectiveNodeFactory.CreateDirectiveNode("model", typeMatch.Result("${type}")));
+                    }
+                    else if (inheritsFrom != "System.Web.Mvc.ViewPage" && inheritsFrom != "System.Web.Mvc.ViewUserControl")
+                    {
+                        result.Add(DirectiveNodeFactory.CreateDirectiveNode("inherits", directiveNode.Attributes["inherits"]));
+                    }
                 }
-                else if (inheritsFrom != "System.Web.Mvc.ViewPage" && inheritsFrom != "System.Web.Mvc.ViewUserControl")
+                else if (directiveNode.Attributes.ContainsKey("namespace") &&
+                         directiveNode.Directive == DirectiveType.Import)
                 {
-                    result.Add(DirectiveNodeFactory.CreateDirectiveNode("inherits", directiveNode.Attributes["inherits"]));
+                    /* Case of of a using directive */
+                    var imports = directiveNode.Attributes["namespace"];
+
+                    if (!string.IsNullOrEmpty(imports))
+                    {
+                        result.Add(DirectiveNodeFactory.CreateDirectiveNode("using", directiveNode.Attributes["namespace"]));
+                    }
                 }
             }
 
