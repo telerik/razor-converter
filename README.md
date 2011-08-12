@@ -21,7 +21,7 @@ For general tips on converting WebForms Views to Razor see these blog posts:
 
 Command line usage:
 
-`aspx2razor <input file / wildcard> [output-directory] [options]`
+`aspx2razor <input-directory> [output-directory] [options]`
 
 Options:
   -r: Convert directories and their contents recursively (Contributed by Jeffrey T. Fritz)
