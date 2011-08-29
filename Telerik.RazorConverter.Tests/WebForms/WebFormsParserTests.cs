@@ -215,7 +215,17 @@
             var document = parser.Parse(docType);
             ((IWebFormsTextNode)document.RootNode.Children[0]).Text.ShouldEqual(docType);
         }
-        
+
+        [Fact]
+        public void Should_parse_javascript_nested_expressions()
+        {
+            var script = "<script type=\"javascript\">var url = '<%= Url.Action(\"Test\", \"Controller\", null)%>';</script>";
+            var document = parser.Parse(script);
+            document.RootNode.Children.Count.ShouldEqual(3);
+            ((IWebFormsTextNode)document.RootNode.Children[0]).Text.ShouldEqual("<script type=\"javascript\">var url = '");
+            ((IWebFormsExpressionBlockNode)document.RootNode.Children[1]).Expression.ShouldEqual(" Url.Action(\"Test\", \"Controller\", null)");
+            ((IWebFormsTextNode)document.RootNode.Children[2]).Text.ShouldEqual("';</script>");
+        }
     }
 }
 
