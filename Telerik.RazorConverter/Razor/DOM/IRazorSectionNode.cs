@@ -3,5 +3,6 @@
     public interface IRazorSectionNode : IRazorNode
     {
         string Name { get; }
+        bool ShouldRender { get; }
     }
 }

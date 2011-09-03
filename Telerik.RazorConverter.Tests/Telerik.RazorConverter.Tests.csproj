@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Razor\Converters\CodeGroupConverterTests.cs" />
     <Compile Include="Razor\Converters\CommentNodeConverterTests.cs" />
+    <Compile Include="Razor\Converters\ContentPlaceHolderTagConverterTest.cs" />
     <Compile Include="Razor\DOM\RazorCommentNodeFactoryTests.cs" />
     <Compile Include="Razor\Rendering\CodeNodeRendererTests.cs" />
     <Compile Include="Razor\DOM\RazorTextNodeFactoryTests.cs" />
