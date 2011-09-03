@@ -17,6 +17,8 @@
         private readonly Mock<INodeConverter<IRazorNode>> childNodeConverterMock;
         private readonly Mock<IWebFormsServerControlNode> contentTagMock;
         private readonly Dictionary<string, string> contentTagMockAttributes;
+        private readonly Mock<IWebFormsServerControlNode> contentPlaceHolderTagMock;
+        private readonly Dictionary<string, string> contentPlaceHolderTagMockAttributes;
         private readonly IList<IWebFormsNode> contentTagChildren;
 
         public ContentTagConverterTests()
@@ -40,6 +42,12 @@
             contentTagMock.SetupGet(scn => scn.TagName).Returns("asp:Content");
             contentTagMock.SetupGet(scn => scn.Attributes).Returns(contentTagMockAttributes);
             contentTagMock.SetupGet(scn => scn.Children).Returns(contentTagChildren);
+
+            contentPlaceHolderTagMockAttributes = new Dictionary<string, string>() { { "ID", "HeadContent" } };
+            contentPlaceHolderTagMock = new Mock<IWebFormsServerControlNode>();
+            contentPlaceHolderTagMock.SetupGet(scn => scn.Type).Returns(NodeType.ServerControl);
+            contentPlaceHolderTagMock.SetupGet(scn => scn.TagName).Returns("asp:contentplaceholder");
+            contentPlaceHolderTagMock.SetupGet(scn => scn.Attributes).Returns(contentPlaceHolderTagMockAttributes);
         }
 
         [Fact]

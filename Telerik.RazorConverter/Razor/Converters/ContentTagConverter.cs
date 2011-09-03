@@ -75,6 +75,8 @@
             if (shouldRender)
             {
                 sectionNode = SectionNodeFactory.CreateSectionNode(contentTag.Attributes["ID"], true);
+
+                iterateOverChildrens(convertedChildren, sectionNode);
             }
             else if (string.Compare(contentPlaceHolderID, Configuration.BodyContentPlaceHolderID, true) != 0)
             {
