@@ -19,8 +19,16 @@
         public string RenderNode(IRazorNode node)
         {
             var sectionNode = node as IRazorSectionNode;
-            var childContent = RenderChildren(node);
-            return string.Format("@section {0} {{\r\n{1}}}", sectionNode.Name, childContent);
+            string childContent = null;
+            
+            if (!sectionNode.ShouldRender)
+                childContent = RenderChildren(node);
+
+            return (
+                sectionNode.ShouldRender ?
+                    string.Format("@RenderSection(\"{0}\", optional: true)", sectionNode.Name) :
+                    string.Format("@section {0} {{\r\n{1}}}", sectionNode.Name, childContent) 
+            );
         }
 
         private string RenderChildren(IRazorNode node)

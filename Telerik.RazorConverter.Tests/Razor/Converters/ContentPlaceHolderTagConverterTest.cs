@@ -8,29 +8,23 @@
     using Telerik.RazorConverter.WebForms.DOM;
     using Xunit;
 
-    public class ContentTagConverterTests
+    public class ContentPlaceHolderTagConverterTest
     {
         private readonly ContentTagConverter converter;
         private readonly Mock<IRazorNodeConverterProvider> nodeConverterProviderMock;
         private readonly Mock<IRazorSectionNodeFactory> sectionNodeFactoryMock;
-        private readonly Mock<IContentTagConverterConfiguration> configurationMock;
         private readonly Mock<INodeConverter<IRazorNode>> childNodeConverterMock;
         private readonly Mock<IWebFormsServerControlNode> contentTagMock;
         private readonly Dictionary<string, string> contentTagMockAttributes;
         private readonly IList<IWebFormsNode> contentTagChildren;
 
-        public ContentTagConverterTests()
+        public ContentPlaceHolderTagConverterTest()
         {
             childNodeConverterMock = new Mock<INodeConverter<IRazorNode>>();
             sectionNodeFactoryMock = new Mock<IRazorSectionNodeFactory>();
             nodeConverterProviderMock = new Mock<IRazorNodeConverterProvider>();
             nodeConverterProviderMock.SetupGet(p => p.NodeConverters)
                 .Returns(new INodeConverter<IRazorNode>[] { childNodeConverterMock.Object });
-
-            configurationMock = new Mock<IContentTagConverterConfiguration>();
-            configurationMock.SetupGet(c => c.BodyContentPlaceHolderID).Returns("MainContent");
-
-            converter = new ContentTagConverter(nodeConverterProviderMock.Object, sectionNodeFactoryMock.Object, configurationMock.Object);
 
             contentTagChildren = new List<IWebFormsNode>();
             contentTagMockAttributes = new Dictionary<string, string>() { { "ContentPlaceHolderID", "HeadContent" } };

@@ -8,13 +8,20 @@
             set;
         }
 
+        public bool ShouldRender 
+        { 
+            get; 
+            set; 
+        }
+
         public RazorSectionNode()
         {
         }
 
-        public RazorSectionNode(string sectionName)
+        public RazorSectionNode(string sectionName, bool shouldRender)
         {
             Name = sectionName;
+            ShouldRender = shouldRender;
         }
     }
 }
