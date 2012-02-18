@@ -128,6 +128,7 @@
             ((IWebFormsTextNode)document.RootNode.Children[1].Children[0]).Text.ShouldEqual("<span>INNER TEXT 2</span>");
         }
 
+
         [Fact]
         public void Parse_should_parse_text_after_server_control()
         {
@@ -215,6 +216,27 @@
             var document = parser.Parse(docType);
             ((IWebFormsTextNode)document.RootNode.Children[0]).Text.ShouldEqual(docType);
         }
+
+		[Fact]
+		public void Parse_should_treat_adjacent_elements_as_siblings()
+		{
+			var document = parser.Parse(@"<asp:Label runat=""server"" id=""label1""></asp:Label><asp:Label runat=""server"" id=""label2""></asp:Label>");
+			(document.RootNode.Children[0] is IWebFormsServerControlNode).ShouldBeTrue();
+			(document.RootNode.Children[1] is IWebFormsServerControlNode).ShouldBeTrue();
+			((IWebFormsServerControlNode)document.RootNode.Children[0]).Attributes["id"].ShouldEqual("label1");
+			((IWebFormsServerControlNode)document.RootNode.Children[1]).Attributes["id"].ShouldEqual("label2");
+		}
+
+		[Fact]
+		public void Parse_should_treat_adjacent_elements_withshortcut_closing_as_siblings()
+		{
+			var document = parser.Parse(@"<asp:Label runat=""server"" id=""label1""/><asp:Label runat=""server"" id=""label2""/>");
+			(document.RootNode.Children[0] is IWebFormsServerControlNode).ShouldBeTrue();
+			(document.RootNode.Children[1] is IWebFormsServerControlNode).ShouldBeTrue();
+			((IWebFormsServerControlNode)document.RootNode.Children[0]).Attributes["id"].ShouldEqual("label1");
+			((IWebFormsServerControlNode)document.RootNode.Children[1]).Attributes["id"].ShouldEqual("label2");
+		}
+
         
     }
 }
