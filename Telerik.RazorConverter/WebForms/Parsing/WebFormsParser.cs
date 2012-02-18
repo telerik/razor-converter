@@ -90,7 +90,7 @@
                     {
                         var serverControlNode = NodeFactory.CreateNode(match, NodeType.ServerControl);
                         parentNode.Children.Add(serverControlNode);
-						if(!match.Value.EndsWith("/"))
+						if(!match.Value.EndsWith("/>"))
 						{
 	                        parentNode = serverControlNode;
 						}
