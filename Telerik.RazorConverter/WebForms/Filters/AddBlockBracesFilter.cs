@@ -25,7 +25,7 @@
         private bool RequiresBlock(string code)
         {
             var statementRegex = new Regex(
-                @"^\s*(?<op>if|using|Html\.RenderPartial)\s*
+                @"^\s*(?<op>foreach|if|using|Html\.RenderPartial)\s*
             (?<param>\((?>[^()]+|\((?<Depth>)|\)(?<-Depth>))*(?(Depth)(?!))\)){1}\s*
             (;)?\s*
             (?<block>\{(?>[^{}]+|\{(?<Depth>)|\}(?<-Depth>))*(?(Depth)(?!))\})?\s*
