@@ -1,8 +1,8 @@
-﻿namespace Telerik.RazorConverter.WebForms.Filters
+namespace Telerik.RazorConverter.WebForms.Filters
 {
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
-    using Telerik.RazorConverter.WebForms.DOM;
+    using DOM;
 
     public class AddBlockBracesFilter : IWebFormsNodeFilter
     {
@@ -15,17 +15,17 @@
                 var codeContentNode = node as IWebFormsContentNode;
                 if (codeContentNode != null && RequiresBlock(codeContentNode.Content))
                 {
-                    codeContentNode.Content = string.Format("{{{0}}}", codeContentNode.Content);
+                    codeContentNode.Content = string.Format("{{{0}}}", codeContentNode.Content).Replace("{{", "{").Replace("}}", "}");
                 }
             }
 
-            return new IWebFormsNode[] { node };
+            return new[] { node };
         }
 
         private bool RequiresBlock(string code)
         {
             var statementRegex = new Regex(
-                @"^\s*(?<op>if|using|Html\.RenderPartial)\s*
+                @"^\s*(?<op>foreach|if|using|Html\.RenderPartial)\s*
             (?<param>\((?>[^()]+|\((?<Depth>)|\)(?<-Depth>))*(?(Depth)(?!))\)){1}\s*
             (;)?\s*
             (?<block>\{(?>[^{}]+|\{(?<Depth>)|\}(?<-Depth>))*(?(Depth)(?!))\})?\s*
