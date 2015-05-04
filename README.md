@@ -7,7 +7,7 @@ Known limitations:
 * Expressions in script tags are not converted
 * Due to the differences between the view engines the automatic conversion will sometimes fail or produce incorrect results. See the integration tests for specific scenarios that are not covered.
 
-For general tips on converting WebForms Views to Razor see these blog posts:
+For general tips on converting WebForms Views to Razor Views, see these blog posts:
 
 * [Introducing Razor](http://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx)
 * [Model directive support](http://weblogs.asp.net/scottgu/archive/2010/10/19/asp-net-mvc-3-new-model-directive-support-in-razor.aspx)
@@ -27,4 +27,4 @@ Options:
   -r: Convert directories and their contents recursively (Contributed by Jeffrey T. Fritz)
 
 A file with cshtml extension will be created for each input file.
-Existing files will be OVERWRITTEN so be careful.
+Existing files will be OVERWRITTEN, so you must be vey careful.
