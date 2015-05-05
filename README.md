@@ -27,4 +27,4 @@ Options:
   -r: Convert directories and their contents recursively (Contributed by Jeffrey T. Fritz)
 
 A file with cshtml extension will be created for each input file.
-Existing files will be OVERWRITTEN, so you must be vey careful.
+Existing files will be OVERWRITTEN, so you must be very careful.
