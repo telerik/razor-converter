@@ -2,6 +2,7 @@
 {
     using Moq;
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
     using Telerik.RazorConverter.Razor.DOM;
     using Telerik.RazorConverter.Razor.Rendering;
     using Xunit;
@@ -41,10 +42,9 @@
         public void Should_render_empty_section()
         {
             sectionNodeMock.SetupGet(n => n.Children).Returns(new IRazorNode[] {});
-            renderer.RenderNode(sectionNodeMock.Object).ShouldEqual(
-@"@section HeadContent {
 
-}");
+            string output = renderer.RenderNode(sectionNodeMock.Object);
+            Regex.Replace(output, @"\s+", " ").ShouldEqual("@section HeadContent { }");
         }
 
         [Fact]
@@ -55,10 +55,8 @@
 
             sectionNodeMock.SetupGet(n => n.Children).Returns(new IRazorNode[] { new Mock<IRazorNode>().Object });
 
-            renderer.RenderNode(sectionNodeMock.Object).ShouldEqual(
-@"@section HeadContent {
-Text
-}");
+            string output = renderer.RenderNode(sectionNodeMock.Object);
+            Regex.Replace(output, @"\s+", " ").ShouldEqual("@section HeadContent { Text }");
         }
     }
 }
