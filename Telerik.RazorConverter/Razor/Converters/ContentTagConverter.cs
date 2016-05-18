@@ -1,5 +1,6 @@
 ﻿namespace Telerik.RazorConverter.Razor.Converters
 {
+    using System;
     using System.Collections.Generic;
     using Telerik.RazorConverter;
     using Telerik.RazorConverter.Razor.DOM;
@@ -37,8 +38,26 @@
         public IList<IRazorNode> ConvertNode(IWebFormsNode node)
         {
             var contentTag = node as IWebFormsServerControlNode;
-            var contentPlaceHolderID = contentTag.Attributes["ContentPlaceHolderID"];
+            var shouldRender = false;
+            var contentPlaceHolderID = string.Empty; 
             var convertedChildren = new List<IRazorNode>();
+
+            if (contentTag.Attributes.ContainsKey("ID") && contentTag.TagName.ToLower() == "asp:contentplaceholder")
+            {
+                shouldRender = true;
+            }
+            else
+            {
+                contentPlaceHolderID = contentTag.Attributes["ContentPlaceHolderID"];
+            }
+
+            Action<IEnumerable<IRazorNode>, IRazorNode> iterateOverChildrens = (childrens, parentNode) =>
+            {
+                foreach (var convertedNode in childrens)
+                {
+                    parentNode.Children.Add(convertedNode);
+                }
+            };
 
             foreach (var childNode in node.Children)
             {
@@ -51,14 +70,23 @@
                 }
             }
 
-            if (string.Compare(contentPlaceHolderID, Configuration.BodyContentPlaceHolderID, true) != 0)
-            {
-                var sectionNode = SectionNodeFactory.CreateSectionNode(contentPlaceHolderID);
-                foreach (var convertedNode in convertedChildren)
-                {
-                    sectionNode.Children.Add(convertedNode);
-                }
+            IRazorSectionNode sectionNode = null;
 
+            if (shouldRender)
+            {
+                sectionNode = SectionNodeFactory.CreateSectionNode(contentTag.Attributes["ID"], true);
+
+                iterateOverChildrens(convertedChildren, sectionNode);
+            }
+            else if (string.Compare(contentPlaceHolderID, Configuration.BodyContentPlaceHolderID, true) != 0)
+            {
+                sectionNode = SectionNodeFactory.CreateSectionNode(contentPlaceHolderID);
+
+                iterateOverChildrens(convertedChildren, sectionNode);
+            }
+            
+            if (sectionNode != null) 
+            {
                 return new IRazorSectionNode[] { sectionNode };
             }
             else
@@ -70,7 +98,16 @@
         public bool CanConvertNode(IWebFormsNode node)
         {
             var serverControlNode = node as IWebFormsServerControlNode;
-            return serverControlNode != null && serverControlNode.TagName.ToLowerInvariant() == "asp:content";
+
+            if (serverControlNode != null)
+            {
+                var tagName = serverControlNode.TagName.ToLowerInvariant();
+                return (tagName == "asp:content" || tagName == "asp:contentplaceholder");
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

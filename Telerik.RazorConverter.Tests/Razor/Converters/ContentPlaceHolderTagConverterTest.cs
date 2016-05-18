@@ -8,31 +8,23 @@
     using Telerik.RazorConverter.WebForms.DOM;
     using Xunit;
 
-    public class ContentTagConverterTests
+    public class ContentPlaceHolderTagConverterTest
     {
         private readonly ContentTagConverter converter;
         private readonly Mock<IRazorNodeConverterProvider> nodeConverterProviderMock;
         private readonly Mock<IRazorSectionNodeFactory> sectionNodeFactoryMock;
-        private readonly Mock<IContentTagConverterConfiguration> configurationMock;
         private readonly Mock<INodeConverter<IRazorNode>> childNodeConverterMock;
         private readonly Mock<IWebFormsServerControlNode> contentTagMock;
         private readonly Dictionary<string, string> contentTagMockAttributes;
-        private readonly Mock<IWebFormsServerControlNode> contentPlaceHolderTagMock;
-        private readonly Dictionary<string, string> contentPlaceHolderTagMockAttributes;
         private readonly IList<IWebFormsNode> contentTagChildren;
 
-        public ContentTagConverterTests()
+        public ContentPlaceHolderTagConverterTest()
         {
             childNodeConverterMock = new Mock<INodeConverter<IRazorNode>>();
             sectionNodeFactoryMock = new Mock<IRazorSectionNodeFactory>();
             nodeConverterProviderMock = new Mock<IRazorNodeConverterProvider>();
             nodeConverterProviderMock.SetupGet(p => p.NodeConverters)
                 .Returns(new INodeConverter<IRazorNode>[] { childNodeConverterMock.Object });
-
-            configurationMock = new Mock<IContentTagConverterConfiguration>();
-            configurationMock.SetupGet(c => c.BodyContentPlaceHolderID).Returns("MainContent");
-
-            converter = new ContentTagConverter(nodeConverterProviderMock.Object, sectionNodeFactoryMock.Object, configurationMock.Object);
 
             contentTagChildren = new List<IWebFormsNode>();
             contentTagMockAttributes = new Dictionary<string, string>() { { "ContentPlaceHolderID", "HeadContent" } };
@@ -42,12 +34,6 @@
             contentTagMock.SetupGet(scn => scn.TagName).Returns("asp:Content");
             contentTagMock.SetupGet(scn => scn.Attributes).Returns(contentTagMockAttributes);
             contentTagMock.SetupGet(scn => scn.Children).Returns(contentTagChildren);
-
-            contentPlaceHolderTagMockAttributes = new Dictionary<string, string>() { { "ID", "HeadContent" } };
-            contentPlaceHolderTagMock = new Mock<IWebFormsServerControlNode>();
-            contentPlaceHolderTagMock.SetupGet(scn => scn.Type).Returns(NodeType.ServerControl);
-            contentPlaceHolderTagMock.SetupGet(scn => scn.TagName).Returns("asp:contentplaceholder");
-            contentPlaceHolderTagMock.SetupGet(scn => scn.Attributes).Returns(contentPlaceHolderTagMockAttributes);
         }
 
         [Fact]

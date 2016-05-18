@@ -43,7 +43,6 @@
                 else if (directiveNode.Attributes.ContainsKey("namespace") &&
                          directiveNode.Directive == DirectiveType.Import)
                 {
-                    /* Case of of a using directive */
                     var imports = directiveNode.Attributes["namespace"];
 
                     if (!string.IsNullOrEmpty(imports))

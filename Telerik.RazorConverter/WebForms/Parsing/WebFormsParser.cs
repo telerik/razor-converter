@@ -96,10 +96,6 @@
                     {
                         AppendTextNode(parentNode, match);
                     }
-                    else if ((match = scriptRegex.Match(input, startAt)).Success)
-                    {
-                        AppendTextNode(parentNode, match);
-                    }
                     else if ((match = startTagOpeningBracketRegex.Match(input, startAt)).Success)
                     {
                         AppendTextNode(parentNode, match);
@@ -126,6 +122,10 @@
                     {
                         var codeBlockNode = NodeFactory.CreateNode(match, NodeType.CodeBlock);
                         parentNode.Children.Add(codeBlockNode);
+                    }
+                    else if ((match = scriptRegex.Match(input, startAt)).Success) // Relocated to enable processing of <% %> tags within the script block.
+                    {
+                        AppendTextNode(parentNode, match);
                     }
                     else
                     {

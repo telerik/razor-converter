@@ -2,6 +2,6 @@
 {
     public interface IRazorSectionNodeFactory
     {
-        IRazorSectionNode CreateSectionNode(string name);
+        IRazorSectionNode CreateSectionNode(string name, bool shouldRender = false);
     }
 }
