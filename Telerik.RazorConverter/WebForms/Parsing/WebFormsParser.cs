@@ -90,7 +90,10 @@
                     {
                         var serverControlNode = NodeFactory.CreateNode(match, NodeType.ServerControl);
                         parentNode.Children.Add(serverControlNode);
-                        parentNode = serverControlNode;
+						if(!match.Value.EndsWith("/>"))
+						{
+	                        parentNode = serverControlNode;
+						}
                     }
                     else if ((match = doctypeRegex.Match(input, startAt)).Success)
                     {
