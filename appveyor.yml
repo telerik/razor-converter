@@ -1,0 +1,22 @@
+image: Visual Studio 2017
+version: 1.0.{build}
+
+configuration:
+  - Debug
+  - Release
+
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  file_version: $(appveyor_build_version)
+
+build_script:
+  - dotnet build
+
+test_script:
+  - dotnet test --no-build
+
+artifacts:
+  - path: aspx2razor\bin\$(configuration)\net40
+    name: aspx2razor
+    type: zip
