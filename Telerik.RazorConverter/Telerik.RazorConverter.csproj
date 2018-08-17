@@ -1,153 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{88630458-D5BE-43B0-A7FB-BC0DFE6CB62E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Telerik.RazorConverter</RootNamespace>
-    <AssemblyName>Telerik.RazorConverter</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>net40</TargetFramework>
+    <Company>Telerik Corp.</Company>
+    <Copyright>Copyright (c) 2011 Telerik Corp.</Copyright>
+    <Product>Telerik.RazorConverter</Product>
+    <PackageLicenseUrl>https://github.com/telerik/razor-converter/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/telerik/razor-converter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/telerik/razor-converter</RepositoryUrl>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Web.RegularExpressions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Razor\Converters\CodeGroupConverter.cs" />
-    <Compile Include="Razor\Converters\ContentTagConverterConfiguration.cs" />
-    <Compile Include="Razor\Converters\CommentNodeConverter.cs" />
-    <Compile Include="Razor\Converters\IContentTagConverterConfiguration.cs" />
-    <Compile Include="Razor\Converters\RazorNodeConverterProvider.cs" />
-    <Compile Include="Razor\Converters\IRazorNodeConverterProvider.cs" />
-    <Compile Include="Razor\Converters\CodeBlockConverter.cs" />
-    <Compile Include="Razor\Converters\ExpressionBlockConverter.cs" />
-    <Compile Include="IOrderMetadata.cs" />
-    <Compile Include="Razor\DOM\RazorCommentNode.cs" />
-    <Compile Include="Razor\DOM\RazorCommentNodeFactory.cs" />
-    <Compile Include="Razor\DOM\IRazorCommentNode.cs" />
-    <Compile Include="Razor\DOM\IRazorCommentNodeFactory.cs" />
-    <Compile Include="Razor\DOM\RazorSectionNodeFactory.cs" />
-    <Compile Include="Razor\DOM\RazorSectionNode.cs" />
-    <Compile Include="Razor\DOM\IRazorSectionNodeFactory.cs" />
-    <Compile Include="Razor\DOM\IRazorSectionNode.cs" />
-    <Compile Include="Razor\DOM\RazorExpressionNodeFactory.cs" />
-    <Compile Include="Razor\DOM\RazorExpressionNode.cs" />
-    <Compile Include="Razor\DOM\IRazorExpressionNodeFactory.cs" />
-    <Compile Include="Razor\DOM\IRazorExpressionNode.cs" />
-    <Compile Include="Razor\DOM\RazorTextNodeFactory.cs" />
-    <Compile Include="Razor\DOM\IRazorTextNodeFactory.cs" />
-    <Compile Include="Razor\DOM\RazorCodeNodeFactory.cs" />
-    <Compile Include="Razor\DOM\IRazorCodeNodeFactory.cs" />
-    <Compile Include="Razor\DOM\RazorDirectiveNodeFactory.cs" />
-    <Compile Include="Razor\DOM\IRazorDirectiveNodeFactory.cs" />
-    <Compile Include="Razor\DOM\RazorDirectiveNode.cs" />
-    <Compile Include="Razor\DOM\IRazorDirectiveNode.cs" />
-    <Compile Include="Razor\Rendering\CodeNodeRenderer.cs" />
-    <Compile Include="Razor\Converters\TextNodeConverter.cs" />
-    <Compile Include="Razor\DOM\RazorCodeNode.cs" />
-    <Compile Include="Razor\DOM\IRazorCodeNode.cs" />
-    <Compile Include="Razor\DOM\RazorTextNode.cs" />
-    <Compile Include="Razor\DOM\IRazorTextNode.cs" />
-    <Compile Include="Razor\Rendering\CommentNodeRenderer.cs" />
-    <Compile Include="Razor\Rendering\RazorNodeRendererProvider.cs" />
-    <Compile Include="Razor\Rendering\IRazorNodeRendererProvider.cs" />
-    <Compile Include="Razor\Rendering\SectionNodeRenderer.cs" />
-    <Compile Include="Razor\Rendering\ExpressionNodeRenderer.cs" />
-    <Compile Include="Razor\Rendering\TextNodeRenderer.cs" />
-    <Compile Include="Razor\Converters\ContentTagConverter.cs" />
-    <Compile Include="IRenderer.cs" />
-    <Compile Include="IWebFormsConverter.cs" />
-    <Compile Include="IDocument.cs" />
-    <Compile Include="IWebFormsParser.cs" />
-    <Compile Include="Razor\Rendering\DirectiveNodeRenderer.cs" />
-    <Compile Include="Razor\DOM\RazorNode.cs" />
-    <Compile Include="Razor\DOM\IRazorNode.cs" />
-    <Compile Include="Razor\Rendering\RazorViewRenderer.cs" />
-    <Compile Include="Razor\Rendering\IRazorNodeRenderer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Razor\Converters\WebFormsToRazorConverter.cs" />
-    <Compile Include="WebForms\DOM\WebFormsCodeBlockNode.cs" />
-    <Compile Include="WebForms\DOM\CommentNode.cs" />
-    <Compile Include="WebForms\DOM\CodeBlockNodeType.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsContentNode.cs" />
-    <Compile Include="WebForms\DOM\WebFormsCodeGroupNode.cs" />
-    <Compile Include="WebForms\DOM\WebFormsCodeGroupFactory.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsCodeGroupNodeFactory.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsCodeGroupNode.cs" />
-    <Compile Include="WebForms\DOM\DirectiveNode.cs" />
-    <Compile Include="WebForms\DOM\DirectiveType.cs" />
-    <Compile Include="WebForms\DOM\ExpressionBlockNode.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsCodeBlockNode.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsCommentNode.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsDirectiveNode.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsExpressionBlockNode.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsNode.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsServerControlNode.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsTextNode.cs" />
-    <Compile Include="WebForms\DOM\WebFormsNode.cs" />
-    <Compile Include="WebForms\DOM\NodeType.cs" />
-    <Compile Include="WebForms\DOM\ServerControlNode.cs" />
-    <Compile Include="WebForms\DOM\TextNode.cs" />
-    <Compile Include="Document.cs" />
-    <Compile Include="WebForms\Filters\CodeBlockGroupingFilter.cs" />
-    <Compile Include="WebForms\Filters\AddBlockBracesFilter.cs" />
-    <Compile Include="WebForms\Filters\WrapNestedTemplatesFilter.cs" />
-    <Compile Include="WebForms\Filters\IWebFormsNodeFilter.cs" />
-    <Compile Include="WebForms\Filters\IWebFormsNodeFilterProvider.cs" />
-    <Compile Include="WebForms\Filters\WebFormsNodeFilterProvider.cs" />
-    <Compile Include="WebForms\Parsing\AttributesReader.cs" />
-    <Compile Include="Razor\Converters\DirectiveConverter.cs" />
-    <Compile Include="WebForms\Parsing\IAttributesReader.cs" />
-    <Compile Include="INodeConverter.cs" />
-    <Compile Include="WebForms\DOM\IWebFormsNodeFactory.cs" />
-    <Compile Include="WebForms\DOM\WebFormsNodeFactory.cs" />
-    <Compile Include="WebForms\Parsing\WebFormsParser.cs" />
-    <Compile Include="WebForms\Parsing\RunatServerTagRegex.cs" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

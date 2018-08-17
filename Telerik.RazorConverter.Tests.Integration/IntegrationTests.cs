@@ -45,7 +45,8 @@
         {
             get
             {
-                var testCasesFolder = new DirectoryInfo("..\\..\\TestCases");
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\TestCases");
+                var testCasesFolder = new DirectoryInfo(path);
                 foreach (var inputFile in testCasesFolder.EnumerateFiles("*.aspx.txt"))
                 {
                     var referenceFileName = inputFile.FullName.Replace(".aspx.txt", ".cshtml");
@@ -78,7 +79,7 @@
                 var annotatedActualLine = string.Format(annotatedFormatString, lineNum, actualLines[lineNum].Trim());
                 var annotatedReferenceLine = string.Format(annotatedFormatString, lineNum, referenceLines[lineNum].Trim());
 
-                annotatedActualLine.ShouldEqual(annotatedReferenceLine);                    
+                annotatedActualLine.ShouldEqual(annotatedReferenceLine);
             }
 
             // Length verification done last in order to show line by line comparision first
@@ -87,9 +88,9 @@
 
         private static IList<string> GetNonEmptyLines(string input)
         {
-            return input.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
-                        .Where(l => !string.IsNullOrWhiteSpace(l))
-                        .ToList();
+            return input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Where(l => !string.IsNullOrWhiteSpace(l))
+                .ToList();
         }
     }
 }

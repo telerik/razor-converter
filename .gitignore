@@ -5,3 +5,6 @@ obj/
 _ReSharper/
 _ReSharper*/
 *.user
+.idea/
+.vs/
+packages/
