@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -36,9 +37,15 @@ namespace aspx2razor {
 
         public string GetOutputFileName(string fileName) {
             var fullFileName = Path.GetFullPath(fileName);
-            var relativeFileName = fullFileName.Remove(0, InputDirectory.Length + 1);
+            var relative = MakeRelative(fullFileName, InputDirectory);
+            return Path.Combine(OutputDirectory, relative);
+        }
 
-            return Path.Combine(OutputDirectory, relativeFileName);
+        private static string MakeRelative(string filePath, string referencePath)
+        {
+            var fileUri = new Uri(filePath);
+            var referenceUri = new Uri(referencePath);
+            return referenceUri.MakeRelativeUri(fileUri).ToString();
         }
 
         private static List<string> GetFiles(string inputDirectory, bool includeSubdirectories) {
